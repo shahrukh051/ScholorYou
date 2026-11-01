@@ -1,0 +1,259 @@
+{
+ "question": "Am I eligible for the State Merit Scholarship 2026, and what do I need before the deadline?",
+ "sources": [
+  {
+   "id": "s1",
+   "title": "State Scholarship Portal: Eligibility",
+   "url": "https://scholarships.example.gov.in/eligibility",
+   "type": "url",
+   "authority": "official",
+   "date": "2026-06-20",
+   "status": "ok"
+  },
+  {
+   "id": "s2",
+   "title": "EduNews: Merit Scholarship 2026 guide",
+   "url": "https://edunews.example.com/merit-2026",
+   "type": "url",
+   "authority": "secondary",
+   "date": "2026-04-02",
+   "status": "ok"
+  },
+  {
+   "id": "s3",
+   "title": "ScholarshipDaily: Merit Scholarship explained",
+   "url": "https://scholarshipdaily.example.com/merit",
+   "type": "url",
+   "authority": "secondary",
+   "date": "2026-04-09",
+   "status": "ok"
+  },
+  {
+   "id": "s4",
+   "title": "Official Notification 2026 (PDF)",
+   "url": "https://scholarships.example.gov.in/notification-2026.pdf",
+   "type": "pdf",
+   "authority": "official",
+   "date": "2026-02-18",
+   "status": "ok"
+  },
+  {
+   "id": "s5",
+   "title": "forum.example.com/thread/4411",
+   "url": "https://forum.example.com/thread/4411",
+   "type": "url",
+   "authority": "community",
+   "status": "failed",
+   "error": "HTTP 403: the site blocked automated reading"
+  }
+ ],
+ "rubric": [
+  {
+   "id": "r1",
+   "label": "Eligible courses and minimum marks",
+   "status": "partial"
+  },
+  {
+   "id": "r2",
+   "label": "Application deadline",
+   "status": "conflict"
+  },
+  {
+   "id": "r3",
+   "label": "Family income limit",
+   "status": "conflict"
+  },
+  {
+   "id": "r4",
+   "label": "Required documents",
+   "status": "found"
+  },
+  {
+   "id": "r5",
+   "label": "Renewal conditions",
+   "status": "not_found"
+  },
+  {
+   "id": "r6",
+   "label": "Selection process",
+   "status": "partial"
+  }
+ ],
+ "claims": [
+  {
+   "id": "c1",
+   "sourceId": "s1",
+   "text": "Annual family income must not exceed ₹6,00,000.",
+   "quote": "Annual family income must not exceed Rs. 6,00,000",
+   "verified": true,
+   "date": "2026-06-20"
+  },
+  {
+   "id": "c2",
+   "sourceId": "s4",
+   "text": "Families with income up to ₹8,00,000 are eligible.",
+   "quote": "family income up to Rs. 8,00,000 shall be eligible",
+   "verified": true,
+   "date": "2026-02-18"
+  },
+  {
+   "id": "c3",
+   "sourceId": "s1",
+   "text": "Last date to apply is 31 July 2026.",
+   "quote": "Last date to apply: 31 July 2026",
+   "verified": true,
+   "date": "2026-06-20"
+  },
+  {
+   "id": "c4",
+   "sourceId": "s1",
+   "text": "Earlier version: last date was 15 July 2026.",
+   "quote": "Last date to apply: 15 July 2026",
+   "verified": true,
+   "date": "2026-03-01"
+  },
+  {
+   "id": "c5",
+   "sourceId": "s2",
+   "text": "Applications close on 15 July 2026.",
+   "quote": "Applications close on 15 July 2026 for all eligible students",
+   "verified": true,
+   "date": "2026-04-02"
+  },
+  {
+   "id": "c6",
+   "sourceId": "s3",
+   "text": "Applications close on 15 July 2026.",
+   "quote": "Applications close on 15 July 2026 for all eligible students",
+   "verified": true,
+   "date": "2026-04-09"
+  },
+  {
+   "id": "c7",
+   "sourceId": "s4",
+   "text": "Income certificate, bank passbook and last marksheet are required.",
+   "quote": "Income certificate, Aadhaar-linked bank passbook and previous marksheet are required",
+   "verified": true,
+   "date": "2026-02-18"
+  }
+ ],
+ "findings": [
+  {
+   "id": "f1",
+   "type": "conflict",
+   "title": "Possible conflict: family income limit",
+   "summary": "The portal states a limit of ₹6,00,000 while the notification PDF states ₹8,00,000. They may apply to different categories or cycles, so this needs checking.",
+   "confidence": "med",
+   "priority": "critical",
+   "claimIds": [
+    "c1",
+    "c2"
+   ],
+   "sourceIds": [
+    "s1",
+    "s4"
+   ],
+   "areaId": "r3",
+   "action": "Check the notification's category table and cycle year before relying on either figure."
+  },
+  {
+   "id": "f2",
+   "type": "drift",
+   "title": "Deadline changed on the official page",
+   "summary": "Archived versions of the official page show the deadline moving from 15 July 2026 to 31 July 2026. Sources that still say 15 July may be outdated.",
+   "confidence": "high",
+   "priority": "critical",
+   "claimIds": [
+    "c3",
+    "c4"
+   ],
+   "sourceIds": [
+    "s1"
+   ],
+   "areaId": "r2",
+   "snapshots": [
+    {
+     "timestamp": "20260301093000",
+     "url": "https://web.archive.org/web/20260301093000/https://scholarships.example.gov.in/eligibility"
+    },
+    {
+     "timestamp": "20260620114500",
+     "url": "https://web.archive.org/web/20260620114500/https://scholarships.example.gov.in/eligibility"
+    }
+   ],
+   "action": "Confirm the current deadline on the live official page and note the date you checked."
+  },
+  {
+   "id": "f3",
+   "type": "echo",
+   "title": "Two sources agree but trace to one origin",
+   "summary": "EduNews and ScholarshipDaily share identical passages, so their matching 15 July deadline is not independent confirmation.",
+   "confidence": "med",
+   "priority": "important",
+   "claimIds": [
+    "c5",
+    "c6"
+   ],
+   "sourceIds": [
+    "s2",
+    "s3"
+   ],
+   "areaId": "r2",
+   "action": "Treat them as one source and look for an independent confirmation."
+  },
+  {
+   "id": "f4",
+   "type": "gap",
+   "title": "Potential gap: renewal conditions",
+   "summary": "Not found in reviewed sources. Renewal rules may exist in a document that was not added.",
+   "confidence": "low",
+   "priority": "important",
+   "claimIds": [],
+   "sourceIds": [],
+   "areaId": "r5",
+   "action": "Search the official guidelines for renewal and continuation rules."
+  }
+ ],
+ "checklist": [
+  {
+   "id": "k1",
+   "findingIds": [
+    "f1"
+   ],
+   "priority": "critical",
+   "text": "Resolve the income limit: ₹6,00,000 or ₹8,00,000",
+   "why": "Eligibility may depend on it.",
+   "done": false
+  },
+  {
+   "id": "k2",
+   "findingIds": [
+    "f2"
+   ],
+   "priority": "critical",
+   "text": "Confirm the current deadline on the live official page",
+   "why": "The official deadline changed between archived versions.",
+   "done": false
+  },
+  {
+   "id": "k3",
+   "findingIds": [
+    "f4"
+   ],
+   "priority": "important",
+   "text": "Find the renewal conditions",
+   "why": "No reviewed source covers them.",
+   "done": false
+  },
+  {
+   "id": "k4",
+   "findingIds": [
+    "f3"
+   ],
+   "priority": "important",
+   "text": "Find an independent source for the deadline",
+   "why": "Two sources share one origin.",
+   "done": false
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+httpx
+pydantic>=2
+trafilatura
+pypdf
+rapidfuzz
+python-multipart
+python-dotenv
