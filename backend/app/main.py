@@ -10,7 +10,15 @@ from . import extract, pipeline
 from .ssrf import fetch
 
 app = FastAPI(title="Digital Dark Spot")
-app.add_middleware(CORSMiddleware, allow_origins=[os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")], allow_methods=["*"], allow_headers=["*"])
+frontend_origin = os.getenv("FRONTEND_ORIGIN", "*")
+origins = [o.strip() for o in frontend_origin.split(",") if o.strip()] if frontend_origin != "*" else ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=False if origins == ["*"] else True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 DB: dict[str, dict] = {}
 DEMO = Path(__file__).with_name("demo_scholarship.json")
 class Q(BaseModel): question: str
@@ -104,4 +112,29 @@ from .scholarships import search_all_scholarships
 async def search_scholarships(q: str = "", category: str = "", course: str = ""):
     results = await search_all_scholarships(query=q, category=category, course=course)
     return {"query": q, "total": len(results), "scholarships": results}
+
+# Serve built frontend if available (Fullstack deployment mode)
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+if not FRONTEND_DIST.exists():
+    FRONTEND_DIST = Path("frontend/dist").resolve()
+
+if FRONTEND_DIST.exists() and (FRONTEND_DIST / "index.html").exists():
+    if (FRONTEND_DIST / "assets").exists():
+        app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(404, "API endpoint not found")
+        target = FRONTEND_DIST / full_path
+        if target.is_file():
+            return FileResponse(target)
+        index_file = FRONTEND_DIST / "index.html"
+        if index_file.exists():
+            return FileResponse(index_file)
+        raise HTTPException(404, "Page not found")
+
 
