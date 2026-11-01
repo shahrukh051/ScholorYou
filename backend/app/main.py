@@ -122,19 +122,18 @@ if not FRONTEND_DIST.exists():
     FRONTEND_DIST = Path("frontend/dist").resolve()
 
 if FRONTEND_DIST.exists() and (FRONTEND_DIST / "index.html").exists():
+    # Mount /assets for JS/CSS bundles
     if (FRONTEND_DIST / "assets").exists():
         app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
 
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
-        if full_path.startswith("api/"):
-            raise HTTPException(404, "API endpoint not found")
+        # Let actual API routes raise 404 normally (they won't reach here)
         target = FRONTEND_DIST / full_path
         if target.is_file():
             return FileResponse(target)
-        index_file = FRONTEND_DIST / "index.html"
-        if index_file.exists():
-            return FileResponse(index_file)
-        raise HTTPException(404, "Page not found")
+        # SPA fallback — serve index.html for all client-side routes
+        return FileResponse(FRONTEND_DIST / "index.html")
+
 
 
