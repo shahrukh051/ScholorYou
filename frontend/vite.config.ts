@@ -11,9 +11,11 @@ export default defineConfig({
       three128: "three",
     },
   },
+  // Dev-only proxy — in production VITE_API_BASE is set to the Render backend URL
   server: {
     proxy: {
       "/api": "http://localhost:8000",
     },
   },
 });
+
